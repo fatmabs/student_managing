@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en"
+    xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Students-management</title>
+</head>
+<body>
+<h1>Students</h1>
+ <!-- Inclusion du header -->
+ <div th:insert="~{header :: header}"></div>
+ 
+ <!-- Formulaire de recherche -->
+ <form th:action="@{/students/search}" method="get">
+ <label for="full_name">Full Name:</label>
+ <input type="text" id="full_name" name="full_name">
+ <label for="minScore">Min Score:</label>
+ <input type="number" id="minScore" name="minScore" step="0.01">
+ <label for="maxScore">Max Score:</label>
+ <input type="number" id="maxScore" name="maxScore" step="0.01">
+ <button type="submit">Search</button>
+ </form> 
+ 
+
+<table border="1">
+
+    <thead>
+        <tr>
+    		<th>Id</th>
+            <th>Cin</th>
+            <th>Full Name</th>
+            <th>Bac Score</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each = "student : ${students}">
+         	<td th:text="${student.id}"></td>
+            <td th:text="${student.cin}"></td>
+            <td th:text="${student.full_name}"></td>
+            <td th:text="${student.score}"></td>
+            <td>
+				 <a th:href="@{/students/edit/{id}(id=${student.id})}">Edit</a>
+				 <a th:href="@{/students/delete/{id}(id=${student.id})}">Delete</a>
+		   </td> 
+        </tr>
+    </tbody>
+</table>
+</body>
+</html>
